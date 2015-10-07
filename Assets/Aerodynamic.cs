@@ -16,8 +16,8 @@ public class Aerodynamic : MonoBehaviour {
     float g = 9.8f;
     float attackAngle = 0;
     float maxResistance = 1;
-    float maxSpeed = 5;
-    float maxLift = 10;
+    float maxSpeed = 10;
+    float maxLift = 12;
     Rigidbody rig;
 
     void GetStatus()
@@ -60,7 +60,7 @@ public class Aerodynamic : MonoBehaviour {
         Vector3 m_speed;
         Quaternion cDrt = new Quaternion(-transform.rotation.x, -transform.rotation.y, -transform.rotation.z, transform.rotation.w);
         m_speed = cDrt * rig.velocity;
-        m_lift = Mathf.Log(m_speed.x + 1) * 2;
+        m_lift = Mathf.Log(m_speed.x + 1) * 2.2f;
         Debug.Log(m_lift);
         if (m_lift > maxLift)
             m_lift = maxLift;
@@ -69,7 +69,7 @@ public class Aerodynamic : MonoBehaviour {
         torque = transform.rotation * torque;
         rig.AddTorque(torque);
         lift = transform.rotation * Vector3.up * m_lift;
-        rig.AddForce(enginF * 5 + lift);
+        rig.AddForce(enginF * 3 + lift);
         Debug.Log(rig.velocity + " ms " + m_speed.x);
     }
 
